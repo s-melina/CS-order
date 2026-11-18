@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>درخواست خرید | CUTSTON</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+<header><i></i><b>CUTSTON</b><a id="nav" class="nav" href="#admin">کنترل و بررسی</a></header>
+
+<main id="formView">
+  <h1>درخواست خرید</h1>
+  <p class="sub">اطلاعات را وارد کنید تا درخواست شما برای بررسی به واحد فروش برسد. ثبت درخواست، خرید قطعی نیست.</p>
+  <form id="f" class="card" novalidate>
+    <div class="f"><label for="company">نام شرکت</label>
+      <input id="company" name="company" autocomplete="organization" aria-describedby="e-company"><p class="err" id="e-company" role="alert" hidden></p></div>
+    <div class="f"><label for="name">نام شخص <span class="opt">(اختیاری)</span></label>
+      <input id="name" name="name" autocomplete="name"></div>
+    <div class="row">
+      <div class="f"><label for="mobile">شمارهٔ موبایل</label>
+        <input id="mobile" name="mobile" class="num" type="tel" inputmode="tel" autocomplete="tel" placeholder="09123456789" aria-describedby="e-mobile"><p class="err" id="e-mobile" role="alert" hidden></p></div>
+      <div class="f"><label for="city">شهر</label>
+        <input id="city" name="city" autocomplete="address-level2" aria-describedby="e-city"><p class="err" id="e-city" role="alert" hidden></p></div>
+    </div>
+    <div class="f"><label for="product">محصول</label>
+      <select id="product" name="product" aria-describedby="e-product"></select><p class="err" id="e-product" role="alert" hidden></p></div>
+    <div class="row">
+      <div class="f"><label for="size">سایز</label>
+        <select id="size" name="size" aria-describedby="e-size"></select><p class="err" id="e-size" role="alert" hidden></p></div>
+      <div class="f"><label for="qty">تعداد</label>
+        <input id="qty" name="qty" class="num" type="text" inputmode="numeric" autocomplete="off" value="1" aria-describedby="e-qty"><p class="err" id="e-qty" role="alert" hidden></p></div>
+    </div>
+    <div class="f"><label for="notes">توضیحات <span class="opt">(اختیاری)</span></label>
+      <textarea id="notes" name="notes"></textarea></div>
+
+    <div class="sum" aria-live="polite">
+      <div><span>قیمت هر عدد</span><span id="s-unit">—</span></div>
+      <div><span>تعداد</span><span id="s-qty">—</span></div>
+      <div class="tot"><span>مبلغ اولیه</span><span id="s-total">—</span></div>
+      <small>قیمت‌ها آزمایشی‌اند و مبلغ نهایی پس از بررسی فروش اعلام می‌شود.</small>
+    </div>
+
+    <button class="pri" id="btn" type="submit">ثبت درخواست</button>
+    <div id="status" role="status" aria-live="polite"></div>
+  </form>
+</main>
+
+<section id="salesView" hidden></section>
+
+<section id="doneView" class="card ok" hidden tabindex="-1">
+  <h2>درخواست شما ثبت شد</h2>
+  <div>شمارهٔ پیگیری:</div>
+  <div class="track ltr" id="d-track"></div>
+  <div id="d-info"></div>
+  <p class="note">درخواست برای بررسی فروش ثبت شده است. این هنوز خرید قطعی نیست؛ مبلغ نهایی و تأیید پس از بررسی اعلام می‌شود.</p>
+  <button class="pri" id="again" type="button">ثبت درخواست جدید</button>
+</section>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

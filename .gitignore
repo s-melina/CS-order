@@ -1,0 +1,22 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# Archives / exports (never commit customer data)
+*.rar
+*.zip
+cutston-requests-*.xlsx
+cutston-requests-*.csv
+
+# Node (if you add tooling later)
+node_modules/
+
+# Secrets
+.env
+.env.*
