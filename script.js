@@ -194,9 +194,13 @@ function renderListView(list){
   b.append(el("b",null,fa(n)),el("span",null,x[1]));
   b.addEventListener("click",function(){sv.f=x[0];sv.show=true;renderSales()});stats.appendChild(b)});
  SV.appendChild(stats);
- var rows=list.filter(match),tools=el("div","tools");
- var ex=btn("خروجی اکسل ("+fa(rows.length)+" درخواست)","pri",function(){try{var k=doExport(rows);note("ok",k==="xlsx"?"فایل اکسل ساخته شد.":"کتابخانهٔ اکسل بارگذاری نشد (اینترنت لازم است)؛ به‌جایش فایل CSV ساخته شد که با اکسل باز می‌شود.")}catch(e){note("bad","ساخت فایل خروجی انجام نشد.")}});
- ex.disabled=!rows.length;tools.appendChild(ex);
+ var tools=el("div","tools");
+ // the export always uses the search/filter that is active at click time, and its label follows the list
+ var ex=btn("","pri",function(){try{
+   var rows=list.filter(match);if(!rows.length)return;
+   var k=doExport(rows);note("ok",k==="xlsx"?"فایل اکسل ساخته شد.":"کتابخانهٔ اکسل بارگذاری نشد (اینترنت لازم است)؛ به‌جایش فایل CSV ساخته شد که با اکسل باز می‌شود.")}catch(e){note("bad","ساخت فایل خروجی انجام نشد.")}});
+ function syncExport(){var n=list.filter(match).length;ex.textContent="خروجی اکسل ("+fa(n)+" درخواست)";ex.disabled=!n}
+ syncExport();tools.appendChild(ex);
  SV.appendChild(tools);
  if(sv.note){SV.appendChild(el("div","msg "+(sv.note.t==="ok"?"load":"bad"),sv.note.m));sv.note=null}
  if(!list.length){var e=el("div","card");e.append(el("b",null,"هنوز درخواستی ثبت نشده است."),el("p","sub","وقتی مشتری فرم درخواست خرید را ثبت کند، اینجا نمایش داده می‌شود."));SV.appendChild(e);return}
@@ -206,6 +210,7 @@ function renderListView(list){
  SV.appendChild(btn(sv.show?"پنهان‌کردن فهرست درخواست‌ها":"نمایش درخواست‌ها ("+fa(list.length)+")","pri tgl",function(){sv.show=!sv.show;renderSales()}));
  var res=el("div");res.setAttribute("aria-live","polite");SV.appendChild(res);
  function fill(){
+  syncExport();
   res.textContent="";
   var m=list.filter(match);
   if(!m.length){var e2=el("div","card");e2.append(el("b",null,"نتیجه‌ای پیدا نشد."),el("p","sub","نام شرکت یا موبایل را بررسی کنید یا فیلتر وضعیت را تغییر دهید."));e2.appendChild(btn("پاک‌کردن جست‌وجو و فیلتر","sec",function(){sv.q="";sv.f="all";renderSales()}));res.appendChild(e2);return}
